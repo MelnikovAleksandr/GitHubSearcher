@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">GitHubSearcher</string>
+
+    <string name="input_error">Input too long</string>
+    <string name="search_user">Search user</string>
+    <string name="search_screen_top_bar">GitHub</string>
+    <string name="followers">Followers: %1\$s</string>
+    <string name="search">Search GitHub users…</string>
+    <string name="unknown_error">Unknown error</string>
 </resources>

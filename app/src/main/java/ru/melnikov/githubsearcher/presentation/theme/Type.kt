@@ -1,4 +1,4 @@
-package ru.melnikov.githubsearcher.ui.theme
+package ru.melnikov.githubsearcher.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

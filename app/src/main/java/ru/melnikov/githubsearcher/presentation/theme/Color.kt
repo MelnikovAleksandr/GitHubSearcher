@@ -1,4 +1,4 @@
-package ru.melnikov.githubsearcher.ui.theme
+package ru.melnikov.githubsearcher.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
