@@ -1,5 +1,6 @@
 package ru.melnikov.githubsearcher.data.model
 
+import ru.melnikov.githubsearcher.domain.model.AccessToken
 import ru.melnikov.githubsearcher.domain.model.Repo
 import ru.melnikov.githubsearcher.domain.model.User
 import java.time.LocalDateTime
@@ -26,6 +27,12 @@ fun RepoDto.toRepo() =
         updatedAt = convertDateTime(updatedAt),
         owner = owner.toUser(0)
     )
+
+fun AccessTokenDto?.toAccessToken(): AccessToken {
+    return AccessToken(
+        accessToken = this?.accessToken ?: ""
+    )
+}
 
 fun convertDateTime(dateTime: String?): LocalDateTime {
     val zonedDateTime = ZonedDateTime.parse(dateTime, DateTimeFormatter.ISO_DATE_TIME)

@@ -11,21 +11,21 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
+import org.orbitmvi.orbit.compose.collectSideEffect
 import ru.melnikov.githubsearcher.R
 import ru.melnikov.githubsearcher.presentation.components.EmptyContent
 import ru.melnikov.githubsearcher.presentation.components.RepoItem
 import ru.melnikov.githubsearcher.presentation.components.RepoTopBar
 import ru.melnikov.githubsearcher.presentation.components.ShimmerLoadingRepoItem
-import ru.melnikov.githubsearcher.presentation.viewmodel.UiEvents
+import ru.melnikov.githubsearcher.presentation.viewmodel.UiEventsRepo
 import ru.melnikov.githubsearcher.presentation.viewmodel.UserRepoUIState
 import ru.melnikov.githubsearcher.presentation.viewmodel.UserRepoViewModel
 
@@ -38,23 +38,22 @@ fun UserRepoScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
-    LaunchedEffect(key1 = true) {
-        viewModel.eventFlow.collectLatest { event ->
-            when (event) {
-                is UiEvents.SnackBarEvent -> {
-                    scope.launch {
-                        snackbarHostState.showSnackbar(event.message)
-                    }
+    viewModel.collectSideEffect {
+        when (it) {
+            is UiEventsRepo.SnackBarEvent -> {
+                scope.launch {
+                    snackbarHostState.showSnackbar(it.message)
                 }
+            }
 
-                is UiEvents.NavigateBack -> {
-                    navigateBack()
-                }
+            is UiEventsRepo.NavigateBack -> {
+                navigateBack()
             }
         }
     }
 
-    val state = viewModel.state.collectAsState().value
+
+    val state by viewModel.container.stateFlow.collectAsState()
 
     UserRepoScreenContent(
         state = state,
@@ -71,7 +70,6 @@ fun UserRepoScreenContent(
     snackbarHostState: SnackbarHostState,
     navigateBack: () -> Unit
 ) {
-
 
     Scaffold(
         modifier = Modifier

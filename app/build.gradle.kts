@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -21,6 +23,13 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        val properties = Properties().apply {
+            load(project.rootProject.file("local.properties").inputStream())
+        }
+
+        buildConfigField("String", "ID", "\"${properties.getProperty("ID")}\"")
+        buildConfigField("String", "SECRET", "\"${properties.getProperty("SECRET")}\"")
     }
 
     buildTypes {
@@ -41,6 +50,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.14"
@@ -100,4 +110,12 @@ dependencies {
     //Paging 3
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.paging.runtime.ktx)
+
+    // EncryptedSharedPreferences
+    implementation(libs.androidx.security.crypto)
+
+    //Orbit MVI
+    implementation(libs.orbit.core)
+    implementation(libs.orbit.viewmodel)
+    implementation(libs.orbit.compose)
 }

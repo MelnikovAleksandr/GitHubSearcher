@@ -1,11 +1,18 @@
 package ru.melnikov.githubsearcher.data.remote
 
 import retrofit2.Response
+import retrofit2.http.Body
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Headers
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
-import retrofit2.http.Url
-import ru.melnikov.githubsearcher.data.model.FollowerDto
+import ru.melnikov.githubsearcher.data.model.AccessTokenDto
+import ru.melnikov.githubsearcher.data.model.AccessTokenRequest
+import ru.melnikov.githubsearcher.data.model.GithubUserDto
 import ru.melnikov.githubsearcher.data.model.RepoDto
 import ru.melnikov.githubsearcher.data.model.UserDto
 import ru.melnikov.githubsearcher.data.model.UserItems
@@ -27,4 +34,8 @@ interface GitHubApi {
     suspend fun getUserWithFollowers(
         @Path("username") username: String
     ): UserDto
+
+    @GET("user")
+    suspend fun getProfile(): Response<GithubUserDto>
+
 }
