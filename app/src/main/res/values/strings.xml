@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">GitHubSearcher</string>
+
+    <string name="input_error">Input too long</string>
+    <string name="search_user">Search user</string>
+    <string name="search_screen_top_bar">GitHub</string>
+    <string name="followers">Followers: %1\$s</string>
+    <string name="search">Search GitHub users…</string>
+    <string name="repositories">Repositories</string>
+
+    <string name="unknown_error">Unknown error</string>
+    <string name="error_timeout">Timeout exception</string>
+    <string name="error_no_connection">Missing connection</string>
+    <string name="error_else">Connection error</string>
+    <string name="server_error">Server connection error</string>
+    <string name="client_error">Client connection error</string>
+    <string name="network_error">Network_error</string>
+
 </resources>
