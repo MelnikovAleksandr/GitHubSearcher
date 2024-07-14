@@ -21,8 +21,8 @@ class UserPagingSource(
             val result = api.searchUser(query, PAGING_SIZE, pageNumber)
             LoadResult.Page(
                 data = result.items.map {
-                    val followers = api.getFollowers(it.followersUrl).size
-                    it.toUser(followers)
+                    val userWithFollowers = api.getUserWithFollowers(it.name)
+                    it.toUser(userWithFollowers.followers ?: 0)
                 },
                 prevKey = if (pageNumber > PAGING_FIRST_PAGE) pageNumber - 1 else null,
                 nextKey = if (result.items.isNotEmpty()) pageNumber + 1 else null

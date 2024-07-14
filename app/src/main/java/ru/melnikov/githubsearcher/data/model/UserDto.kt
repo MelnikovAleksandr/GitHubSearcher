@@ -11,5 +11,5 @@ data class UserDto(
     @SerializedName("id") val id: Int,
     @SerializedName("avatar_url") val avatarUrl: String,
     @SerializedName("login") val name: String,
-    @SerializedName("followers_url") val followersUrl: String
+    @SerializedName("followers") val followers: Int?
 )

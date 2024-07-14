@@ -5,6 +5,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import ru.melnikov.githubsearcher.data.di.dataModule
 import ru.melnikov.githubsearcher.presentation.di.uiModule
+import ru.melnikov.githubsearcher.utils.utilsModule
 
 class App : Application() {
 
@@ -12,7 +13,7 @@ class App : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@App)
-            modules(dataModule, uiModule)
+            modules(dataModule, uiModule, utilsModule)
         }
     }
 }

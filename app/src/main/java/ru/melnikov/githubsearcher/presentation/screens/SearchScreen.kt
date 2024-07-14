@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -28,13 +27,14 @@ import ru.melnikov.githubsearcher.R
 import ru.melnikov.githubsearcher.domain.model.User
 import ru.melnikov.githubsearcher.presentation.components.SearchField
 import ru.melnikov.githubsearcher.presentation.components.SearchTopBar
-import ru.melnikov.githubsearcher.presentation.components.ShimmerLoadingItem
+import ru.melnikov.githubsearcher.presentation.components.ShimmerLoadingUserItem
 import ru.melnikov.githubsearcher.presentation.components.UserListItem
 import ru.melnikov.githubsearcher.presentation.viewmodel.SearchViewModel
 
 @Composable
 fun SearchScreen(
-    viewModel: SearchViewModel = koinViewModel()
+    viewModel: SearchViewModel = koinViewModel(),
+    onNavigateToRepositoryScreen: (String) -> Unit
 ) {
 
     val users = viewModel.githubUsers.collectAsLazyPagingItems()
@@ -43,7 +43,8 @@ fun SearchScreen(
         users = users,
         searchName = viewModel.searchName,
         searchNameUpdate = viewModel::updateName,
-        onSearchClick = viewModel::searchUser
+        onSearchClick = viewModel::searchUser,
+        onNavigateToRepositoryScreen = onNavigateToRepositoryScreen
     )
 }
 
@@ -52,7 +53,8 @@ fun SearchScreenContent(
     users: LazyPagingItems<User>,
     searchName: String,
     searchNameUpdate: (String) -> Unit,
-    onSearchClick: () -> Unit
+    onSearchClick: () -> Unit,
+    onNavigateToRepositoryScreen: (String) -> Unit
 ) {
 
     val focusManager = LocalFocusManager.current
@@ -99,7 +101,7 @@ fun SearchScreenContent(
                     UserListItem(
                         modifier = Modifier.animateItem(),
                         user = users[index],
-                        onNavigateToRepositoryScreen = {}
+                        onNavigateToRepositoryScreen = onNavigateToRepositoryScreen
                     )
                 }
                 users.apply {
@@ -107,7 +109,7 @@ fun SearchScreenContent(
                         is LoadState.Loading -> {
                             item {
                                 repeat(10) {
-                                    ShimmerLoadingItem()
+                                    ShimmerLoadingUserItem()
                                 }
                             }
                         }

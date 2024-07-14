@@ -6,8 +6,11 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.melnikov.githubsearcher.data.remote.GitHubApi
+import ru.melnikov.githubsearcher.data.remote.RetrofitErrorsHandler
 import ru.melnikov.githubsearcher.data.repository.SearchRepositoryImpl
+import ru.melnikov.githubsearcher.data.repository.UserRepoRepositoryImpl
 import ru.melnikov.githubsearcher.domain.repository.SearchRepository
+import ru.melnikov.githubsearcher.domain.repository.UserRepoRepository
 import ru.melnikov.githubsearcher.utils.Constants.GITHUB_URL
 
 val dataModule = module {
@@ -21,6 +24,15 @@ val dataModule = module {
     single { get<Retrofit>().create(GitHubApi::class.java) }
 
     single<SearchRepository> { SearchRepositoryImpl(api = get()) }
+
+    single<UserRepoRepository> {
+        UserRepoRepositoryImpl(
+            api = get(),
+            retrofitErrorsHandler = get()
+        )
+    }
+
+    single<RetrofitErrorsHandler> { RetrofitErrorsHandler.RetrofitErrorsHandlerImpl() }
 
 }
 

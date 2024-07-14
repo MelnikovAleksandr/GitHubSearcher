@@ -91,11 +91,6 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.core)
 
-    //Orbit MVI
-    implementation(libs.orbit.core)
-    implementation(libs.orbit.viewmodel)
-    implementation(libs.orbit.compose)
-
     // Coil
     implementation(libs.coil.compose)
 

@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ShimmerLoadingItem(modifier: Modifier = Modifier) {
+fun ShimmerLoadingUserItem(modifier: Modifier = Modifier) {
     Card(
         modifier = modifier.padding(4.dp)
     ) {

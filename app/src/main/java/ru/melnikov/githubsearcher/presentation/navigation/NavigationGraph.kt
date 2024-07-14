@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ru.melnikov.githubsearcher.presentation.screens.SearchScreen
+import ru.melnikov.githubsearcher.presentation.screens.UserRepoScreen
 
 @Composable
 fun NavigationGraph(
@@ -20,13 +21,25 @@ fun NavigationGraph(
     NavHost(
         navController = navController,
         startDestination = Routes.UserSearchScreen,
-        modifier = Modifier.fillMaxSize().padding(paddingValues)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues)
     ) {
 
         composable<Routes.UserSearchScreen> {
-            SearchScreen()
+            SearchScreen { userName ->
+                navController.navigateTo(
+                    Routes.UserRepositoriesScreen(
+                        userName = userName
+                    )
+                )
+            }
         }
 
+        composable<Routes.UserRepositoriesScreen> {
+            UserRepoScreen {
+                navController.popUp()
+            }
+        }
     }
-
 }

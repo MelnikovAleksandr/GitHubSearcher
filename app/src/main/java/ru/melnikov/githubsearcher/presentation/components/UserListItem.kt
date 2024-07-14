@@ -32,7 +32,7 @@ fun UserListItem(
     if (user != null) {
         Card(
             modifier = modifier.padding(4.dp),
-            onClick = { onNavigateToRepositoryScreen(user.id.toString()) }) {
+            onClick = { onNavigateToRepositoryScreen(user.name) }) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
